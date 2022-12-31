@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using IssueTracker.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<IssueTrackerContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("IssueTrackerContext") ?? throw new InvalidOperationException("Connection string 'IssueTrackerContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
