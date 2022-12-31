@@ -16560,8 +16560,28 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\IssueTracker\\Views\\Users\\Delete.cshtml",
+      "TargetPath": "Views\\Users\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Members\\Details.cshtml",
+      "TargetPath": "Views\\Members\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Members\\Delete.cshtml",
+      "TargetPath": "Views\\Members\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\IssueTracker\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Members\\Index.cshtml",
+      "TargetPath": "Views\\Members\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -16570,8 +16590,53 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\IssueTracker\\Views\\Issues\\Edit.cshtml",
+      "TargetPath": "Views\\Issues\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Projects\\Edit.cshtml",
+      "TargetPath": "Views\\Projects\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Managers\\Edit.cshtml",
+      "TargetPath": "Views\\Managers\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Issues\\Create.cshtml",
+      "TargetPath": "Views\\Issues\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Managers\\Create.cshtml",
+      "TargetPath": "Views\\Managers\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Admins\\Create.cshtml",
+      "TargetPath": "Views\\Admins\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Managers\\Index.cshtml",
+      "TargetPath": "Views\\Managers\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Managers\\Details.cshtml",
+      "TargetPath": "Views\\Managers\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\IssueTracker\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Issues\\Index.cshtml",
+      "TargetPath": "Views\\Issues\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -16580,8 +16645,93 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\IssueTracker\\Views\\Projects\\Index.cshtml",
+      "TargetPath": "Views\\Projects\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Projects\\Details.cshtml",
+      "TargetPath": "Views\\Projects\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Issues\\Delete.cshtml",
+      "TargetPath": "Views\\Issues\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Admins\\Edit.cshtml",
+      "TargetPath": "Views\\Admins\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Members\\Create.cshtml",
+      "TargetPath": "Views\\Members\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Users\\Edit.cshtml",
+      "TargetPath": "Views\\Users\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Issues\\Details.cshtml",
+      "TargetPath": "Views\\Issues\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Users\\Details.cshtml",
+      "TargetPath": "Views\\Users\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Admins\\Index.cshtml",
+      "TargetPath": "Views\\Admins\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Admins\\Delete.cshtml",
+      "TargetPath": "Views\\Admins\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\IssueTracker\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Members\\Edit.cshtml",
+      "TargetPath": "Views\\Members\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Admins\\Details.cshtml",
+      "TargetPath": "Views\\Admins\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Projects\\Delete.cshtml",
+      "TargetPath": "Views\\Projects\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Managers\\Delete.cshtml",
+      "TargetPath": "Views\\Managers\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Users\\Index.cshtml",
+      "TargetPath": "Views\\Users\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Projects\\Create.cshtml",
+      "TargetPath": "Views\\Projects\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\IssueTracker\\Views\\Users\\Create.cshtml",
+      "TargetPath": "Views\\Users\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
