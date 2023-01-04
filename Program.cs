@@ -1,9 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using IssueTracker.Data;
+// using IssueTracker.Data;
+using Microsoft.AspNetCore.Identity;
+using IssueTracker.Areas.Identity.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<IssueTrackerContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("IssueTrackerContext") ?? throw new InvalidOperationException("Connection string 'IssueTrackerContext' not found.")));
+
+builder.Services.AddDefaultIdentity<IssueTrackerUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IssueTrackerContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -28,5 +33,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

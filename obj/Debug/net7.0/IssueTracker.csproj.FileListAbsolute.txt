@@ -301,3 +301,11 @@ C:\IssueTracker\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Runtime.
 C:\IssueTracker\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\IssueTracker\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\IssueTracker\obj\Debug\net7.0\IssueTracker.csproj.CopyComplete
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+C:\IssueTracker\obj\Debug\net7.0\IssueTracker.MvcApplicationPartsAssemblyInfo.cs

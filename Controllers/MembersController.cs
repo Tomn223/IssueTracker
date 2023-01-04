@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using IssueTracker.Data;
+using IssueTracker.Areas.Identity.Data;
 using IssueTracker.Models;
 
 namespace IssueTracker.Controllers
