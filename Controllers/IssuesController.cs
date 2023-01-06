@@ -46,8 +46,9 @@ namespace IssueTracker.Controllers
         }
 
         // GET: Issues/Create
-        public IActionResult Create()
+        public IActionResult Create(Project proj)
         {
+            var issueViewModel = new Issue { Project = proj };
             return View();
         }
 
@@ -56,7 +57,7 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Status,Priority,CreatedAt,FoundAt")] Issue issue)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Status,Priority,CreatedAt,FoundAt,Project")] Issue issue)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +65,7 @@ namespace IssueTracker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(issue);
+            return View();
         }
 
         // GET: Issues/Edit/5
@@ -158,6 +159,22 @@ namespace IssueTracker.Controllers
         private bool IssueExists(int id)
         {
           return (_context.Issue?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private ActionResult AddIssueFromProj(Project proj)
+        {
+            var issueViewModel = new Models.Issue { Project = proj };
+            return View(issueViewModel);
+        }
+        public async Task<IActionResult> AddIssueFromProj([Bind("Id,Title,Description,Status,Priority,CreatedAt,FoundAt")] Issue issue)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(issue);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(issue);
         }
     }
 }

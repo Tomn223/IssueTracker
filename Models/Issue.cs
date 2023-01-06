@@ -4,6 +4,10 @@ namespace IssueTracker.Models;
 
 public class Issue
 {
+    public Issue()
+    {
+        Project = new Project();
+    }
     public int Id { get; set; }
     public string Title { get; set; }
     public string? Description { get; set; }
