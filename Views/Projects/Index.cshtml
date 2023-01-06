@@ -4,19 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Projects</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">New Project</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issues)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
@@ -26,12 +29,22 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="clickable" onclick="location.href='@(Url.Action("Details", "Projects", new { Id = item.Id }))'">
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (item.Issues == null)
+                {
+                    @("0")
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Issues.Count)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)

@@ -159,5 +159,10 @@ namespace IssueTracker.Controllers
         {
           return (_context.Project?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> AddIssue(Project proj)
+        {
+            return RedirectToAction("Create", "Issues", new { Project = proj });
+        }
     }
 }
