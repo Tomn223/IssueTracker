@@ -37,6 +37,8 @@ namespace IssueTracker.Controllers
 
             var project = await _context.Project
                 .FirstOrDefaultAsync(m => m.Id == id);
+            // ProjectViewModel viewModel = new ProjectViewModel(); 
+            project.Issues = _context.Issue.Where(i => i.ProjectID == project.Id).ToList();
             if (project == null)
             {
                 return NotFound();
@@ -56,10 +58,16 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedAt")] Project project)
+        public async Task<IActionResult> Create(Project project)
         {
             if (ModelState.IsValid)
             {
+            // Project project = new Project();
+            // project.Id = projectViewModel.Id;
+            // project.Title = projectViewModel.Title;
+            // project.Description = projectViewModel.Description;
+            // project.CreatedAt = projectViewModel.CreatedAt;
+            // project.Issues = new List<Issue>();
                 _context.Add(project);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -160,9 +168,22 @@ namespace IssueTracker.Controllers
           return (_context.Project?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public async Task<IActionResult> AddIssue(Project proj)
+        public async Task<IActionResult> CreateIssue(int id)
         {
-            return RedirectToAction("Create", "Issues", new { Project = proj });
+            TempData["project"] = id;
+            return RedirectToAction("Create", "Issues");
+        }
+
+        public async Task<IActionResult> AddIssue(int id)
+        {
+            var issue = _context.Issue.Find(TempData["issue"]);
+            var project = _context.Project.Find(id);
+            if (project.Issues == null){
+                project.Issues = new List<Issue>();
+            }
+            project.Issues.Add(issue);
+            _context.Update(project);
+            return RedirectToAction("Details", "Projects", new {id = id});
         }
     }
 }
