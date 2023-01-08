@@ -36,7 +36,7 @@
 <div>
     <hr>
     <h4>Issues</h4>
-    @* <a asp-action="AddIssue" asp-route-id="@Model?">New Issue</a> *@
+    <a asp-action="CreateIssue" asp-route-id="@Model?.Id">New Issue</a>
     <table class="table table-hover">
         <thead class="thead-light">
             <tr>
@@ -61,7 +61,35 @@
             </tr>
         </thead>
         <tbody>
-
+    @if (Model.Issues != null){
+@foreach (var item in Model.Issues){
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoundAt)
+                </td>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.Managers) *@
+                </td>
+            </tr>
+    }
+    }
+     else {
+        <tr>
+            <td> lol you buffoon </td>
+        </tr>
+    }
         </tbody>
     </table>
 </div>

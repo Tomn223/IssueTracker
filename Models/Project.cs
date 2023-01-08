@@ -10,5 +10,5 @@ public class Project
     public ICollection<Manager>? Managers { get; set; }
     public ICollection<Member>? Members { get; set; }
     public DateTime CreatedAt { get; set; }
-    public ICollection<Issue>? Issues { get; set; }
+    public ICollection<Issue> Issues { get; set; }
 }

@@ -46,10 +46,11 @@ namespace IssueTracker.Controllers
         }
 
         // GET: Issues/Create
-        public IActionResult Create(Project proj)
+        public IActionResult Create()
         {
-            var issueViewModel = new Issue { Project = proj };
-            return View();
+            // var issueViewModel = new IssueViewModel();
+            // issueViewModel.Project = _context.Project.Find(TempData["project"]);
+            return View(new IssueViewModel());
         }
 
         // POST: Issues/Create
@@ -57,15 +58,43 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Status,Priority,CreatedAt,FoundAt,Project")] Issue issue)
+        public IActionResult Create(IssueViewModel issueViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(issue);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View();
+            // if (ModelState.IsValid)
+            // {
+            //     _context.Add(issue);
+            //     await _context.SaveChangesAsync();
+            //     return RedirectToAction(nameof(Index));
+            // }
+            // return View();
+            var issue = new Issue();
+            int id = issueViewModel.Id;
+            issue.Id = id;
+            issue.Title = issueViewModel.Title;
+            issue.Description = issueViewModel.Description;
+            // issue.Managers.Add(issueViewModel.Manager1);
+            // issue.Managers.Add(issueViewModel.Manager2);
+            // issue.Managers.Add(issueViewModel.Manager3);
+            // issue.Members.Add(issueViewModel.Member1);
+            // issue.Members.Add(issueViewModel.Member2);
+            // issue.Members.Add(issueViewModel.Member3);
+            issue.Status = issueViewModel.Status;
+            issue.Priority = issueViewModel.Priority;
+            issue.CreatedAt = issueViewModel.CreatedAt;
+            issue.FoundAt = issueViewModel.FoundAt;
+            issue.ProjectID = (int)TempData["project"];
+            var project = _context.Project.Find(TempData["project"]);
+            issue.Project = project;
+            // issue.Project.Issues.Add(issue);
+            // TempData["issue"] = issue.Id;
+            _context.Issue.Add(issue);
+            _context.SaveChanges();
+            // project.Issues = new List<Issue>();
+            // project.Issues.Add(issue);
+            // _context.SaveChanges();
+            // TempData["issue"] = id;
+            // TempData["project"] = TempData["project"];
+            return RedirectToAction("Details", "Projects", new {id = TempData["project"]});
         }
 
         // GET: Issues/Edit/5
