@@ -22,9 +22,9 @@ namespace IssueTracker.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-              return _context.Project != null ? 
-                          View(await _context.Project.ToListAsync()) :
-                          Problem("Entity set 'IssueTrackerContext.Project'  is null.");
+            return _context.Project != null ? 
+                        View(await _context.Project.Include(i => i.Issues).ToListAsync()) :
+                        Problem("Entity set 'IssueTrackerContext.Project'  is null.");
         }
 
         // GET: Projects/Details/5
