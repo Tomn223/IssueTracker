@@ -80,7 +80,7 @@ namespace IssueTracker.Controllers
             // issue.Members.Add(issueViewModel.Member3);
             issue.Status = issueViewModel.Status;
             issue.Priority = issueViewModel.Priority;
-            issue.CreatedAt = issueViewModel.CreatedAt;
+            issue.CreatedAt = DateTime.Now;
             issue.FoundAt = issueViewModel.FoundAt;
             issue.ProjectID = (int)TempData["project"];
             var project = _context.Project.Find(TempData["project"]);

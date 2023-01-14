@@ -68,6 +68,7 @@ namespace IssueTracker.Controllers
             // project.Description = projectViewModel.Description;
             // project.CreatedAt = projectViewModel.CreatedAt;
             // project.Issues = new List<Issue>();
+                project.CreatedAt = DateTime.Now;
                 _context.Add(project);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

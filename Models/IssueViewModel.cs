@@ -13,7 +13,7 @@ public class IssueViewModel
     public Member? Member1 { get; set; }
     public Member? Member2 { get; set; }
     public Member? Member3 { get; set; }
-    public string Status { get; set; }
+    public Status Status { get; set; }
     public int Priority { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? FoundAt { get; set; }
