@@ -106,11 +106,23 @@ namespace IssueTracker.Controllers
             }
 
             var issue = await _context.Issue.FindAsync(id);
+            IssueViewModel viewModel;
             if (issue == null)
             {
                 return NotFound();
+            } else {
+                viewModel = new IssueViewModel();
+                viewModel.Id = issue.Id;
+                viewModel.Title = issue.Title;
+                viewModel.Description = issue.Description;
+                viewModel.Status = issue.Status;
+                viewModel.Priority = issue.Priority;
+                viewModel.CreatedAt = issue.CreatedAt;
+                viewModel.FoundAt = issue.FoundAt;
+                viewModel.ProjectID = issue.ProjectID;
+                viewModel.Project = issue.Project;
             }
-            return View(issue);
+            return View(viewModel);
         }
 
         // POST: Issues/Edit/5
@@ -118,34 +130,42 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Status,Priority,CreatedAt,FoundAt")] Issue issue)
+        public async Task<IActionResult> Edit(int id, IssueViewModel viewModel)
         {
-            if (id != issue.Id)
-            {
-                return NotFound();
-            }
+            // if (id != viewModel.Id)
+            // {
+            //     return NotFound();
+            // }
 
-            if (ModelState.IsValid)
+            // if (ModelState.IsValid)
+            // {
+            var issue = await _context.Issue.FindAsync(id);
+            try
             {
-                try
-                {
-                    _context.Update(issue);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!IssueExists(issue.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                // issue.Id = viewModel.Id;
+                issue.Title = viewModel.Title;
+                issue.Description = viewModel.Description;
+                issue.Status = viewModel.Status;
+                issue.Priority = viewModel.Priority;
+                issue.CreatedAt = viewModel.CreatedAt;
+                issue.FoundAt = viewModel.FoundAt;
+                _context.Update(issue);
+                await _context.SaveChangesAsync();
             }
-            return View(issue);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!IssueExists(issue.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Details", "Projects", new {id = issue.ProjectID});
+            // }
+            // return View(issue);
         }
 
         // GET: Issues/Delete/5
@@ -176,13 +196,14 @@ namespace IssueTracker.Controllers
                 return Problem("Entity set 'IssueTrackerContext.Issue'  is null.");
             }
             var issue = await _context.Issue.FindAsync(id);
+            var projID = issue.ProjectID;
             if (issue != null)
             {
                 _context.Issue.Remove(issue);
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Projects", new {id = projID});
         }
 
         private bool IssueExists(int id)
