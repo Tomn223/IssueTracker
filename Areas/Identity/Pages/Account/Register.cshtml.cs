@@ -30,11 +30,13 @@ namespace IssueTracker.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IssueTrackerUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IssueTrackerRole> _roleManager;
 
         public RegisterModel(
             UserManager<IssueTrackerUser> userManager,
             IUserStore<IssueTrackerUser> userStore,
             SignInManager<IssueTrackerUser> signInManager,
+            RoleManager<IssueTrackerRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -44,6 +46,7 @@ namespace IssueTracker.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -134,6 +137,13 @@ namespace IssueTracker.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    var defaultrole = _roleManager.FindByNameAsync("Default").Result;  
+
+                    if (defaultrole != null)  
+                    {  
+                        IdentityResult roleresult = await  _userManager.AddToRoleAsync(user, defaultrole.Name);  
+                    }  
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

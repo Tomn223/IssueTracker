@@ -13,7 +13,17 @@ public class IssueTrackerUser : IdentityUser {
     public DateTime CreatedAt { get; set; }
 }
 
-public class IssueTrackerContext : IdentityDbContext<IssueTrackerUser>
+public enum RoleTitle {
+    admin,
+    manager,
+    member
+}
+
+public class IssueTrackerRole : IdentityRole {
+    public RoleTitle RoleTitle { get; set; }
+}
+
+public class IssueTrackerContext : IdentityDbContext<IssueTrackerUser, IssueTrackerRole, string>
 {
     public IssueTrackerContext(DbContextOptions<IssueTrackerContext> options)
         : base(options)
