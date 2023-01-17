@@ -6,9 +6,14 @@ using IssueTracker.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<IssueTrackerContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("IssueTrackerContext") ?? throw new InvalidOperationException("Connection string 'IssueTrackerContext' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("IssueTrackerContext")
+        ?? throw new InvalidOperationException("Connection string 'IssueTrackerContext' not found.")));
 
-builder.Services.AddDefaultIdentity<IssueTrackerUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IssueTrackerContext>();
+builder.Services.AddDefaultIdentity<IssueTrackerUser>(options => 
+    options.SignIn.RequireConfirmedAccount = true).AddRoles<IssueTrackerRole>().AddEntityFrameworkStores<IssueTrackerContext>();
+
+// RoleManager = new RoleManager<IssueTrackerRole>(new RoleStore<IssueTrackerRole>(new IssueTrackerContext()));
+// var roleresult = RoleManager.Create(new IdentityRole(Admin));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
