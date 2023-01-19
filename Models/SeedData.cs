@@ -18,11 +18,25 @@ public static class SeedData
             serviceProvider.GetRequiredService<
                 DbContextOptions<IssueTrackerContext>>()))
         {
-            var roleStore = new RoleStore<IssueTrackerRole>(context);
-
-            if (!context.Roles.Any(r => r.Name == "Member"))
+            // var roleStore = new RoleStore<IssueTrackerRole>(context);
+            // var roleManager = new RoleManager<IdentityRole>(context);
+            // var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IssueTrackerRole>>();
+            // serviceScope.ServiceProvider.GetService<RoleM
+            
+            if (!roleManager.RoleExistsAsync("Member").Result)
             {
-                roleStore.CreateAsync(new IssueTrackerRole("Member"));
+                IssueTrackerRole role = new IssueTrackerRole();
+                role.Name = "Member";
+                role.Id = Guid.NewGuid().ToString();
+                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+            }
+            if (!roleManager.RoleExistsAsync("Manager").Result)
+            {
+                IssueTrackerRole role = new IssueTrackerRole();
+                role.Name = "Manager";
+                role.Id = Guid.NewGuid().ToString();
+                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
             }
             // // Look for any users
             // if (context.AspNetUsers.Any())

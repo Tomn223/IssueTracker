@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace IssueTracker.Controllers
 {
-    [Authorize(Roles = "Member")]
+    [Authorize(Roles = "Manager")]
     public class ProjectsController : Controller
     {
         private readonly IssueTrackerContext _context;

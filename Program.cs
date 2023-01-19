@@ -18,6 +18,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// var roleManager = builder.Services.GetRequiredService<RoleManager<IdentityRole>>();
 //Seed Database
 using (var scope = app.Services.CreateScope())
 {
