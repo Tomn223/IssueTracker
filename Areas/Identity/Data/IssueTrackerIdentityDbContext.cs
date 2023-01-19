@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IssueTracker.Areas.Identity.Data;
 
-public class IssueTrackerUser : IdentityUser {
+public class IssueTrackerUser : IdentityUser
+{
     [PersonalData]
     public string? FirstName { get; set; }
     [PersonalData]
@@ -13,15 +14,37 @@ public class IssueTrackerUser : IdentityUser {
     public DateTime CreatedAt { get; set; }
 }
 
-public enum RoleTitle {
+public enum RoleTitle
+{
     admin,
     manager,
     member
 }
 
-public class IssueTrackerRole : IdentityRole {
+public class IssueTrackerRole : IdentityRole<string>
+{
+    public IssueTrackerRole() : base()
+    {
+    }
+
+    public IssueTrackerRole(string roleName) : base(roleName)
+    {
+    }
     public RoleTitle RoleTitle { get; set; }
 }
+
+// public class IssueTrackerRoleManager : RoleManager<IssueTrackerRole>
+// {
+//     public IssueTrackerRoleManager(IRoleStore<IssueTrackerRole, string> roleStore)
+//         : base(roleStore)
+//     {
+//     }
+
+//     public static IssueTrackerRoleManager Create(IdentityFactoryOptions<IssueTrackerRoleManager> options)
+//     {
+//         return new IssueTrackerRoleManager(new RoleStore<IssueTrackerRole>(context.Get<IssueTrackerContext>()));
+//     }
+// }
 
 public class IssueTrackerContext : IdentityDbContext<IssueTrackerUser, IssueTrackerRole, string>
 {

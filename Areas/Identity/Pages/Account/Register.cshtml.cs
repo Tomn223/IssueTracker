@@ -22,6 +22,12 @@ using IssueTracker.Areas.Identity.Data;
 
 namespace IssueTracker.Areas.Identity.Pages.Account
 {
+    public enum RoleTitle
+    {
+        admin,
+        manager,
+        member
+    }
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IssueTrackerUser> _signInManager;
@@ -93,6 +99,11 @@ namespace IssueTracker.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Role")]
+            public string RoleName { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -137,11 +148,11 @@ namespace IssueTracker.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    var defaultrole = _roleManager.FindByNameAsync("Default").Result;  
+                    var defaultrole = _roleManager.FindByNameAsync(Input.RoleName).Result;  
 
                     if (defaultrole != null)  
                     {  
-                        IdentityResult roleresult = await  _userManager.AddToRoleAsync(user, defaultrole.Name);  
+                        IdentityResult roleresult = await  _userManager.AddToRoleAsync(user, Input.RoleName);  
                     }  
 
                     _logger.LogInformation("User created a new account with password.");

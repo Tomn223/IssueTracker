@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 // using IssueTracker.Data;
 using Microsoft.AspNetCore.Identity;
 using IssueTracker.Areas.Identity.Data;
+using IssueTracker.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<IssueTrackerContext>(options =>
@@ -12,13 +13,18 @@ builder.Services.AddDbContext<IssueTrackerContext>(options =>
 builder.Services.AddDefaultIdentity<IssueTrackerUser>(options => 
     options.SignIn.RequireConfirmedAccount = true).AddRoles<IssueTrackerRole>().AddEntityFrameworkStores<IssueTrackerContext>();
 
-// RoleManager = new RoleManager<IssueTrackerRole>(new RoleStore<IssueTrackerRole>(new IssueTrackerContext()));
-// var roleresult = RoleManager.Create(new IdentityRole(Admin));
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// var roleManager = builder.Services.GetRequiredService<RoleManager<IdentityRole>>();
+//Seed Database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
