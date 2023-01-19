@@ -137,11 +137,11 @@ namespace IssueTracker.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    var defaultrole = _roleManager.FindByNameAsync("Default").Result;  
+                    var defaultrole = _roleManager.FindByNameAsync("Member").Result;  
 
                     if (defaultrole != null)  
                     {  
-                        IdentityResult roleresult = await  _userManager.AddToRoleAsync(user, defaultrole.Name);  
+                        IdentityResult roleresult = await  _userManager.AddToRoleAsync(user, "Member");  
                     }  
 
                     _logger.LogInformation("User created a new account with password.");

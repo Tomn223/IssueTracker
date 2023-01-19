@@ -19,7 +19,14 @@ public enum RoleTitle {
     member
 }
 
-public class IssueTrackerRole : IdentityRole {
+public class IssueTrackerRole : IdentityRole<string> {
+    public IssueTrackerRole() : base()
+    {
+    }
+
+    public IssueTrackerRole(string roleName) : base(roleName)
+    {
+    }
     public RoleTitle RoleTitle { get; set; }
 }
 

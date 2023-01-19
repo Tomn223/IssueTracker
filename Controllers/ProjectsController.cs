@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IssueTracker.Areas.Identity.Data;
 using IssueTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IssueTracker.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class ProjectsController : Controller
     {
         private readonly IssueTrackerContext _context;
