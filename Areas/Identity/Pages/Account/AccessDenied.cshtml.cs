@@ -3,6 +3,7 @@
 #nullable disable
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using IssueTracker.Models;
 
 namespace IssueTracker.Areas.Identity.Pages.Account
 {
@@ -18,6 +19,8 @@ namespace IssueTracker.Areas.Identity.Pages.Account
         /// </summary>
         public void OnGet()
         {
+            // string mail = (await _userManager.GetUserAsync(HttpContext.User))?.Email
+            // ViewBag.RoleName
         }
     }
 }

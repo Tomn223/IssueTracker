@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "4WnTpr9lCj/1NRggXQxCgKNuWCj8DwbjvheKspRP/SI+saAa1vWWPCTRZOQiPHTflq1fp9RL5MUi9LgFDeXO7Q==",
+  "dgSpecHash": "nPRPh/rq2GF78j2fwFU3r2cR7vIIaVOcNV53F7uxJwW++nR6HZAijXVuTTkQMUC7hQcp8U7C0vBdroc1Vk2y1g==",
   "success": true,
   "projectFilePath": "C:\\IssueTracker\\IssueTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tomne\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\tomne\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\tomne\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\tomne\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
     "C:\\Users\\tomne\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.1\\microsoft.aspnetcore.cryptography.internal.7.0.1.nupkg.sha512",
     "C:\\Users\\tomne\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.1\\microsoft.aspnetcore.cryptography.keyderivation.7.0.1.nupkg.sha512",
     "C:\\Users\\tomne\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.1\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.1.nupkg.sha512",
@@ -200,5 +201,16 @@
     "C:\\Users\\tomne\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\tomne\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Identity.Core 2.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Identity.Core",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

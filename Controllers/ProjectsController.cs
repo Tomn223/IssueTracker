@@ -7,11 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IssueTracker.Areas.Identity.Data;
 using IssueTracker.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
+using Microsoft.AspNetCore.Authentication;
+
 
 namespace IssueTracker.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IssueTrackerContext _context;
@@ -50,6 +61,7 @@ namespace IssueTracker.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles="Manager")]
         public IActionResult Create()
         {
             return View();
@@ -60,25 +72,31 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Project project)
+        [Authorize(Roles="Manager")]
+        public async Task<IActionResult> Create(ProjectViewModel projectViewModel)
         {
-            if (ModelState.IsValid)
-            {
-            // Project project = new Project();
-            // project.Id = projectViewModel.Id;
-            // project.Title = projectViewModel.Title;
-            // project.Description = projectViewModel.Description;
-            // project.CreatedAt = projectViewModel.CreatedAt;
+            // if (ModelState.IsValid)
+            // var _userManager =  new UserManager<IssueTrackerUser>(new UserStore<IssueTrackerUser>(new IssueTrackerContext()));
+            // var _userManager = serviceProvider.GetRequiredService<UserManager<IssueTrackerUser>>();
+            Project project = new Project();
+            project.Id = projectViewModel.Id;
+            project.Title = projectViewModel.Title;
+            project.Description = projectViewModel.Description;
+            string currentUserId = User.Identity.GetUserId();
+            // ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            project.Managers.Add(_context.Users.FirstOrDefault(x => x.Id == currentUserId));
+            project.CreatedAt = DateTime.Now;
             // project.Issues = new List<Issue>();
-                project.CreatedAt = DateTime.Now;
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(project);
+            project.CreatedAt = DateTime.Now;
+            _context.Add(project);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            // }
+            // return View(project);
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Project == null)
@@ -99,6 +117,7 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedAt")] Project project)
         {
             if (id != project.Id)
@@ -130,6 +149,7 @@ namespace IssueTracker.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Project == null)
@@ -150,6 +170,7 @@ namespace IssueTracker.Controllers
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Project == null)

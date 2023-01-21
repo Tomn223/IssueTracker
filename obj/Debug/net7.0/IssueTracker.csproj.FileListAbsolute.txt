@@ -309,3 +309,4 @@ C:\IssueTracker\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\IssueTracker\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 C:\IssueTracker\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 C:\IssueTracker\obj\Debug\net7.0\IssueTracker.MvcApplicationPartsAssemblyInfo.cs
+C:\IssueTracker\bin\Debug\net7.0\Microsoft.AspNet.Identity.Core.dll
