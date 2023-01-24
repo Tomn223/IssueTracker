@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using IssueTracker.Models;
 
 namespace IssueTracker.Areas.Identity.Data;
 
@@ -12,8 +13,12 @@ public class IssueTrackerUser : IdentityUser
     public string? LastName { get; set; }
     [PersonalData]
     public DateTime CreatedAt { get; set; }
+    public ICollection<Project>? Projects { get; set; }
+    public ICollection<Issue>? Issues { get; set; }
+    public ICollection<IssueTrackerUser>? Team { get; set; }
 }
 
+//change to description?
 public enum RoleTitle
 {
     admin,
@@ -30,6 +35,7 @@ public class IssueTrackerRole : IdentityRole<string>
     public IssueTrackerRole(string roleName) : base(roleName)
     {
     }
+    //currently not in use, change to description? 
     public RoleTitle RoleTitle { get; set; }
 }
 

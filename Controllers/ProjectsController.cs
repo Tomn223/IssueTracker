@@ -52,6 +52,7 @@ namespace IssueTracker.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             // ProjectViewModel viewModel = new ProjectViewModel(); 
             project.Issues = _context.Issue.Where(i => i.ProjectID == project.Id).ToList();
+            project.Team = _context.Users.Where(i => i.Projects.Contains(project)).ToList();
             if (project == null)
             {
                 return NotFound();
@@ -84,9 +85,12 @@ namespace IssueTracker.Controllers
             project.Description = projectViewModel.Description;
             string currentUserId = User.Identity.GetUserId();
             // ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            project.Managers.Add(_context.Users.FirstOrDefault(x => x.Id == currentUserId));
-            project.CreatedAt = DateTime.Now;
+            project.Team = new List<IssueTrackerUser>();
+            IssueTrackerUser currUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+            project.Team.Add(currUser);
+            currUser.Projects = new List<Project>();
             // project.Issues = new List<Issue>();
+            currUser.Projects.Add(project);
             project.CreatedAt = DateTime.Now;
             _context.Add(project);
             await _context.SaveChangesAsync();
