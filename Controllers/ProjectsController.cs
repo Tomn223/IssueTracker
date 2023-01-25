@@ -65,6 +65,8 @@ namespace IssueTracker.Controllers
         [Authorize(Roles="Manager")]
         public IActionResult Create()
         {
+            string currentUserId = User.Identity.GetUserId();
+            ViewBag.Users = _context.Users.Where(x => x.Id != currentUserId).ToList();
             return View();
         }
 
@@ -76,27 +78,30 @@ namespace IssueTracker.Controllers
         [Authorize(Roles="Manager")]
         public async Task<IActionResult> Create(ProjectViewModel projectViewModel)
         {
-            // if (ModelState.IsValid)
-            // var _userManager =  new UserManager<IssueTrackerUser>(new UserStore<IssueTrackerUser>(new IssueTrackerContext()));
-            // var _userManager = serviceProvider.GetRequiredService<UserManager<IssueTrackerUser>>();
             Project project = new Project();
             project.Id = projectViewModel.Id;
             project.Title = projectViewModel.Title;
             project.Description = projectViewModel.Description;
+            project.CreatedAt = DateTime.Now;
+
             string currentUserId = User.Identity.GetUserId();
-            // ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
             project.Team = new List<IssueTrackerUser>();
             IssueTrackerUser currUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
             project.Team.Add(currUser);
-            currUser.Projects = new List<Project>();
-            // project.Issues = new List<Issue>();
+            currUser.Projects = new List<Project>(); //fix later
             currUser.Projects.Add(project);
-            project.CreatedAt = DateTime.Now;
+
+            if (projectViewModel.Member1 != null)
+            {
+                IssueTrackerUser newUser = projectViewModel.Member1;
+                project.Team.Add(newUser);
+                newUser.Projects = new List<Project>(); //fix later
+                newUser.Projects.Add(project);
+            }
+            
             _context.Add(project);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-            // }
-            // return View(project);
         }
 
         // GET: Projects/Edit/5
