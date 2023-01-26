@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Member1)<br>
-                @Html.DropDownListFor(model => model.Member1, new SelectList(ViewBag.Users))
+                @Html.DropDownListFor(model => model.Member1.Email, new SelectList(ViewBag.Users))
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

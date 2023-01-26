@@ -98,7 +98,7 @@ namespace IssueTracker.Controllers
                 newUser.Projects = new List<Project>(); //fix later
                 newUser.Projects.Add(project);
             }
-            
+
             _context.Add(project);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
