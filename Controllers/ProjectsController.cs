@@ -91,12 +91,15 @@ namespace IssueTracker.Controllers
             currUser.Projects = new List<Project>(); //fix later
             currUser.Projects.Add(project);
 
-            if (projectViewModel.Member1 != null)
+            if (projectViewModel.Team != null)
             {
-                IssueTrackerUser newUser = projectViewModel.Member1;
-                project.Team.Add(newUser);
-                newUser.Projects = new List<Project>(); //fix later
-                newUser.Projects.Add(project);
+                foreach (String userEmail in projectViewModel.Team)
+                {
+                    IssueTrackerUser user = _context.Users.FirstOrDefault(x => x.Email == userEmail);
+                    project.Team.Add(user);  
+                    user.Projects = new List<Project>(); //fix later
+                    user.Projects.Add(project);
+                }
             }
 
             _context.Add(project);

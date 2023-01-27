@@ -23,8 +23,8 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Member1)<br>
-                @Html.DropDownListFor(model => model.Member1.Email, new SelectList(ViewBag.Users))
+                @Html.LabelFor(model => model.Team)<br>
+                @Html.ListBoxFor(model => model.Team, new SelectList(ViewBag.Users, "Email"))
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
