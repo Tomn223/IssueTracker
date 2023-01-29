@@ -8,9 +8,9 @@ namespace IssueTracker.Areas.Identity.Data;
 public class IssueTrackerUser : IdentityUser
 {
     [PersonalData]
-    public string? FirstName { get; set; }
+    public string FirstName { get; set; }
     [PersonalData]
-    public string? LastName { get; set; }
+    public string LastName { get; set; }
     [PersonalData]
     public DateTime CreatedAt { get; set; }
     public ICollection<Project>? Projects { get; set; }

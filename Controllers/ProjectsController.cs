@@ -66,7 +66,9 @@ namespace IssueTracker.Controllers
         public IActionResult Create()
         {
             string currentUserId = User.Identity.GetUserId();
-            ViewBag.Users = _context.Users.Where(x => x.Id != currentUserId).ToList();
+            var uniqueUsers = new HashSet<string>();
+            //FirstName check required to fix weird duplicate bug
+            ViewBag.Users = _context.Users.Where(x => x.Id != currentUserId && x.FirstName != "").ToList(); 
             return View();
         }
 
