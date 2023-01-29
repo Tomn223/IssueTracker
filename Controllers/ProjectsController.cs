@@ -7,11 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IssueTracker.Areas.Identity.Data;
 using IssueTracker.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
+using Microsoft.AspNetCore.Authentication;
+
 
 namespace IssueTracker.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IssueTrackerContext _context;
@@ -41,6 +52,7 @@ namespace IssueTracker.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             // ProjectViewModel viewModel = new ProjectViewModel(); 
             project.Issues = _context.Issue.Where(i => i.ProjectID == project.Id).ToList();
+            project.Team = _context.Users.Where(i => i.Projects.Contains(project)).ToList();
             if (project == null)
             {
                 return NotFound();
@@ -50,8 +62,13 @@ namespace IssueTracker.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles="Manager")]
         public IActionResult Create()
         {
+            string currentUserId = User.Identity.GetUserId();
+            var uniqueUsers = new HashSet<string>();
+            //FirstName check required to fix weird duplicate bug
+            ViewBag.Users = _context.Users.Where(x => x.Id != currentUserId && x.FirstName != "").ToList(); 
             return View();
         }
 
@@ -60,25 +77,40 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Project project)
+        [Authorize(Roles="Manager")]
+        public async Task<IActionResult> Create(ProjectViewModel projectViewModel)
         {
-            if (ModelState.IsValid)
+            Project project = new Project();
+            project.Id = projectViewModel.Id;
+            project.Title = projectViewModel.Title;
+            project.Description = projectViewModel.Description;
+            project.CreatedAt = DateTime.Now;
+
+            string currentUserId = User.Identity.GetUserId();
+            project.Team = new List<IssueTrackerUser>();
+            IssueTrackerUser currUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+            project.Team.Add(currUser);
+            currUser.Projects = new List<Project>(); //fix later
+            currUser.Projects.Add(project);
+
+            if (projectViewModel.Team != null)
             {
-            // Project project = new Project();
-            // project.Id = projectViewModel.Id;
-            // project.Title = projectViewModel.Title;
-            // project.Description = projectViewModel.Description;
-            // project.CreatedAt = projectViewModel.CreatedAt;
-            // project.Issues = new List<Issue>();
-                project.CreatedAt = DateTime.Now;
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                foreach (String userEmail in projectViewModel.Team)
+                {
+                    IssueTrackerUser user = _context.Users.FirstOrDefault(x => x.Email == userEmail);
+                    project.Team.Add(user);  
+                    user.Projects = new List<Project>(); //fix later
+                    user.Projects.Add(project);
+                }
             }
-            return View(project);
+
+            _context.Add(project);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Project == null)
@@ -99,6 +131,7 @@ namespace IssueTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedAt")] Project project)
         {
             if (id != project.Id)
@@ -130,6 +163,7 @@ namespace IssueTracker.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Project == null)
@@ -150,6 +184,7 @@ namespace IssueTracker.Controllers
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Project == null)
